@@ -71,31 +71,31 @@ export async function getStudent(id: string): Promise<ActionResult> {
 
 export async function getStudentFinancialSummary(studentId: string): Promise<ActionResult> {
     try {
-        const entries = await prisma.studentFeeLedgerEntry.findMany({
+        // Optimization: Use database aggregation instead of fetching all ledger entries into memory.
+        // This is more efficient for students with many transactions.
+        const summary = await prisma.studentFeeLedgerEntry.groupBy({
+            by: ['type'],
             where: { studentId },
+            _sum: { amount: true },
         });
 
-        let totalCharged = 0;
-        let totalDiscount = 0;
-        let totalPaid = 0;
-        let totalAdjustment = 0;
+        const totals = {
+            CHARGE: 0,
+            DISCOUNT: 0,
+            PAYMENT: 0,
+            ADJUSTMENT: 0,
+        };
 
-        for (const entry of entries) {
-            switch (entry.type) {
-                case "CHARGE":
-                    totalCharged += entry.amount;
-                    break;
-                case "DISCOUNT":
-                    totalDiscount += entry.amount;
-                    break;
-                case "PAYMENT":
-                    totalPaid += entry.amount;
-                    break;
-                case "ADJUSTMENT":
-                    totalAdjustment += entry.amount;
-                    break;
+        summary.forEach((item) => {
+            if (item.type in totals) {
+                totals[item.type as keyof typeof totals] = item._sum.amount || 0;
             }
-        }
+        });
+
+        const totalCharged = totals.CHARGE;
+        const totalDiscount = totals.DISCOUNT;
+        const totalPaid = totals.PAYMENT;
+        const totalAdjustment = totals.ADJUSTMENT;
 
         const netPayable = totalCharged - totalDiscount + totalAdjustment;
         const balanceDue = netPayable - totalPaid;
