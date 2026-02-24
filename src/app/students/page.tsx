@@ -36,11 +36,11 @@ export default async function StudentsPage({
     const batches = (batchesResult.data as any[]) || [];
 
     return (
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div className="page-header" style={{ marginBottom: "var(--space-2xl)" }}>
                 <div>
                     <h1 style={{ fontSize: "2.5rem", fontWeight: 800, letterSpacing: "-0.04em", color: "var(--text-primary)" }}>Student Directory</h1>
-                    <p style={{ color: "var(--text-tertiary)", fontWeight: 500, marginTop: "4px", fontSize: "1rem" }}>
+                    <p style={{ color: "var(--text-tertiary)", fontWeight: 500, marginTop: "4px", fontSize: "1.0625rem" }}>
                         Comprehensive record of institutional enrollment and academic profiles
                     </p>
                 </div>
@@ -57,28 +57,28 @@ export default async function StudentsPage({
                 </Link>
             </div>
 
-            <div className="section-card" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
-                <div className="section-header" style={{ padding: "20px 24px", background: "transparent", borderBottom: "1px solid var(--border-default)" }}>
+            <div className="section-card" style={{ background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)", borderRadius: "20px", overflow: "hidden" }}>
+                <div className="section-header" style={{ padding: "24px", background: "linear-gradient(to right, #ffffff, #fcfcfc)", borderBottom: "1px solid var(--border-default)" }}>
                     <StudentsFilter courses={courses} batches={batches} />
                 </div>
-                <div className="data-table-wrapper" style={{ border: "none", borderRadius: 0, overflow: "visible" }}>
+                <div className="data-table-wrapper" style={{ border: "none", borderRadius: 0 }}>
                     <table className="data-table">
                         <thead>
-                            <tr style={{ background: "var(--bg-secondary)" }}>
-                                <th style={{ paddingLeft: "24px" }}>Registry ID</th>
-                                <th>Student Identity</th>
-                                <th>Academic Path</th>
-                                <th>Batch</th>
-                                <th>Contact Information</th>
-                                <th>Registration</th>
-                                <th style={{ textAlign: "right", paddingRight: "24px" }}>Interface</th>
+                            <tr style={{ background: "#fcfcfc" }}>
+                                <th style={{ paddingLeft: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Registry ID</th>
+                                <th style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Student Identity</th>
+                                <th style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Academic Path</th>
+                                <th style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Batch</th>
+                                <th style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Contact</th>
+                                <th style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Registration</th>
+                                <th style={{ textAlign: "right", paddingRight: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Interface</th>
                             </tr>
                         </thead>
-                        <tbody style={{ background: "#ffffff" }}>
+                        <tbody>
                             {students.length === 0 ? (
                                 <tr>
                                     <td colSpan={7}>
-                                        <div className="empty-state" style={{ padding: "var(--space-3xl)" }}>
+                                        <div className="empty-state" style={{ padding: "80px 24px" }}>
                                             <div style={{
                                                 width: "64px",
                                                 height: "64px",
@@ -88,13 +88,13 @@ export default async function StudentsPage({
                                                 alignItems: "center",
                                                 justifyContent: "center",
                                                 color: "var(--text-tertiary)",
-                                                marginBottom: "var(--space-lg)",
+                                                marginBottom: "20px",
                                                 border: "1px solid var(--border-default)"
                                             }}>
                                                 <Users size={32} />
                                             </div>
-                                            <p style={{ fontWeight: 800, fontSize: "1.125rem", color: "var(--text-primary)" }}>No match found</p>
-                                            <p style={{ color: "var(--text-tertiary)", fontWeight: 500, marginTop: "4px" }}>
+                                            <p style={{ fontWeight: 900, fontSize: "1.25rem", color: "var(--text-primary)", letterSpacing: "-0.02em" }}>No match found</p>
+                                            <p style={{ color: "var(--text-tertiary)", fontWeight: 500, marginTop: "6px", fontSize: "1rem" }}>
                                                 Adjust your filters or initiate a new student registration.
                                             </p>
                                         </div>
@@ -102,7 +102,7 @@ export default async function StudentsPage({
                                 </tr>
                             ) : (
                                 students.map((student: StudentRow) => (
-                                    <tr key={student.id}>
+                                    <tr key={student.id} style={{ borderBottom: "1px solid var(--border-default)" }}>
                                         <td style={{ paddingLeft: "24px" }}>
                                             <span className="font-mono" style={{
                                                 color: "var(--accent-primary)",
@@ -120,7 +120,7 @@ export default async function StudentsPage({
                                             <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "0.9375rem" }}>
                                                 {student.firstName} {student.lastName}
                                             </div>
-                                            <div style={{ fontSize: "0.75rem", color: "var(--text-tertiary)", fontWeight: 600, marginTop: "2px" }}>
+                                            <div style={{ fontSize: "0.75rem", color: "var(--text-tertiary)", fontWeight: 700, marginTop: "2px", textTransform: "uppercase", letterSpacing: "0.02em" }}>
                                                 Official Enrollee
                                             </div>
                                         </td>
@@ -146,7 +146,7 @@ export default async function StudentsPage({
                                         <td>
                                             <div style={{ fontWeight: 700, color: "var(--text-secondary)", fontSize: "0.875rem" }}>{student.primaryPhone}</div>
                                         </td>
-                                        <td style={{ color: "var(--text-tertiary)", fontWeight: 600, fontSize: "0.8125rem" }}>
+                                        <td style={{ color: "var(--text-tertiary)", fontWeight: 700, fontSize: "0.8125rem" }}>
                                             {new Date(student.enrollmentDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                                         </td>
                                         <td style={{ textAlign: "right", paddingRight: "24px" }}>
@@ -155,7 +155,7 @@ export default async function StudentsPage({
                                                 padding: "0 18px",
                                                 fontWeight: 800,
                                                 borderRadius: "10px",
-                                                background: "var(--bg-secondary)",
+                                                background: "#ffffff",
                                                 border: "1px solid var(--border-default)",
                                                 fontSize: "0.8125rem"
                                             }}>
@@ -175,14 +175,15 @@ export default async function StudentsPage({
                 <div style={{
                     display: "flex",
                     justifyContent: "center",
-                    gap: "10px",
-                    marginTop: "var(--space-2xl)",
+                    gap: "8px",
+                    marginTop: "40px",
                     padding: "8px",
-                    background: "var(--bg-secondary)",
-                    borderRadius: "18px",
+                    background: "#ffffff",
+                    borderRadius: "20px",
                     width: "fit-content",
-                    margin: "var(--space-2xl) auto 0",
-                    border: "1px solid var(--border-default)"
+                    margin: "40px auto 0",
+                    border: "1px solid var(--border-default)",
+                    boxShadow: "var(--shadow-sm)"
                 }}>
                     {Array.from({ length: totalPages }, (_, i) => (
                         <Link
@@ -190,16 +191,16 @@ export default async function StudentsPage({
                             href={`/students?page=${i + 1}${params.search ? `&search=${params.search}` : ""}${params.courseId ? `&courseId=${params.courseId}` : ""}${params.batchId ? `&batchId=${params.batchId}` : ""}`}
                             className={`btn btn-sm ${currentPage === i + 1 ? "btn-primary" : "btn-secondary"}`}
                             style={{
-                                width: "42px",
-                                height: "42px",
+                                width: "40px",
+                                height: "40px",
                                 padding: 0,
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                borderRadius: "12px",
-                                fontWeight: 900,
-                                fontSize: "0.9375rem",
-                                boxShadow: currentPage === i + 1 ? "0 6px 15px rgba(37, 99, 235, 0.2)" : "none",
+                                borderRadius: "10px",
+                                fontWeight: 800,
+                                fontSize: "0.875rem",
+                                boxShadow: currentPage === i + 1 ? "0 4px 12px rgba(37, 99, 235, 0.2)" : "none",
                                 background: currentPage === i + 1 ? "var(--accent-primary)" : "transparent",
                                 color: currentPage === i + 1 ? "#ffffff" : "var(--text-secondary)",
                                 border: currentPage === i + 1 ? "none" : "1px solid transparent"

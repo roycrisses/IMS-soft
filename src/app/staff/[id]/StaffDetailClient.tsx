@@ -16,14 +16,15 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
     const router = useRouter();
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-xl)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             <div className="tabs" style={{
-                background: "var(--bg-secondary)",
+                background: "#ffffff",
                 padding: "6px",
-                borderRadius: "14px",
+                borderRadius: "16px",
                 display: "inline-flex",
                 width: "fit-content",
-                border: "1px solid var(--border-default)"
+                border: "1px solid var(--border-default)",
+                boxShadow: "var(--shadow-sm)"
             }}>
                 {([
                     { id: "profile", label: "Administrative Profile" },
@@ -35,11 +36,16 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
                         className={`tab ${activeTab === tab.id ? "active" : ""}`}
                         onClick={() => setActiveTab(tab.id)}
                         style={{
-                            padding: "10px 24px",
+                            padding: "10px 32px",
                             fontSize: "0.875rem",
                             fontWeight: 800,
-                            borderRadius: "10px",
-                            transition: "all 0.2s ease"
+                            borderRadius: "12px",
+                            transition: "all 0.2s ease",
+                            background: activeTab === tab.id ? "var(--accent-primary)" : "transparent",
+                            color: activeTab === tab.id ? "#ffffff" : "var(--text-tertiary)",
+                            boxShadow: activeTab === tab.id ? "0 4px 12px rgba(37, 99, 235, 0.2)" : "none",
+                            border: "none",
+                            cursor: "pointer"
                         }}
                     >
                         {tab.label}
@@ -49,44 +55,44 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
 
             {/* Profile Tab */}
             {activeTab === "profile" && (
-                <div className="section-card" style={{ padding: "var(--space-2xl)", background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
-                    <div className="section-header" style={{ marginBottom: "var(--space-2xl)", padding: 0, border: "none" }}>
-                        <h3 style={{ fontSize: "1.25rem", fontWeight: 800 }}>Employment Particulars</h3>
+                <div className="section-card" style={{ padding: "32px", background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)", borderRadius: "20px" }}>
+                    <div className="section-header" style={{ marginBottom: "32px", padding: 0, border: "none" }}>
+                        <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)" }}>Employment Particulars</h3>
                     </div>
-                    <div className="form-grid" style={{ gap: "var(--space-xl) var(--space-2xl)" }}>
+                    <div className="form-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "32px 40px" }}>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Full Legal Name</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Full Legal Name</div>
                             <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{staff.firstName} {staff.lastName}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Designation / Role</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Designation / Role</div>
                             <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{staff.role}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Corporate Email</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Corporate Email</div>
                             <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{staff.email || <span style={{ color: "var(--text-tertiary)", fontWeight: 500, fontStyle: "italic" }}>Credentials pending</span>}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Contact Number</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Contact Number</div>
                             <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{staff.phone || <span style={{ color: "var(--text-tertiary)", fontWeight: 500, fontStyle: "italic" }}>No record</span>}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Date of Induction</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Date of Induction</div>
                             <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{new Date(staff.joinDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Current Status</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Current Status</div>
                             <div style={{ marginTop: "4px" }}>
                                 <span style={{
-                                    background: staff.isActive ? "var(--status-paid-bg)" : "var(--status-pending-bg)",
+                                    background: staff.isActive ? "rgba(16, 185, 129, 0.06)" : "var(--bg-secondary)",
                                     color: staff.isActive ? "var(--status-paid)" : "var(--text-tertiary)",
                                     fontWeight: 900,
                                     fontSize: "0.625rem",
                                     textTransform: "uppercase",
                                     letterSpacing: "0.06em",
-                                    padding: "5px 14px",
+                                    padding: "5px 16px",
                                     borderRadius: "100px",
-                                    border: staff.isActive ? "1px solid rgba(16, 185, 129, 0.2)" : "1px solid var(--border-default)"
+                                    border: "1px solid currentColor"
                                 }}>
                                     {staff.isActive ? "Authorized" : "Deactivated"}
                                 </span>
@@ -98,9 +104,9 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
 
             {/* Salary History Tab */}
             {activeTab === "salary" && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-lg)" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
                     {showSalaryForm && (
-                        <div className="section-card" style={{ padding: "var(--space-2xl)", background: "var(--bg-secondary)", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
+                        <div className="section-card" style={{ padding: "32px", background: "linear-gradient(135deg, #ffffff 0%, #fcfcfc 100%)", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)", borderRadius: "20px" }}>
                             <SalaryForm
                                 staffId={staff.id}
                                 onSuccess={() => {
@@ -111,10 +117,13 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
                         </div>
                     )}
 
-                    <div className="section-card" style={{ background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
-                        <div className="section-header" style={{ padding: "24px", borderBottom: "1px solid var(--border-default)" }}>
-                            <h3 style={{ fontSize: "1.25rem", fontWeight: 800 }}>Remuneration Architecture</h3>
-                            <button className="btn btn-primary" onClick={() => setShowSalaryForm(!showSalaryForm)} style={{ height: "40px", padding: "0 20px", borderRadius: "10px", fontWeight: 800, fontSize: "0.875rem" }}>
+                    <div className="section-card" style={{ background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)", borderRadius: "20px", overflow: "hidden" }}>
+                        <div className="section-header" style={{ padding: "24px", background: "linear-gradient(to right, #ffffff, #fcfcfc)", borderBottom: "1px solid var(--border-default)" }}>
+                            <div>
+                                <h3 style={{ fontSize: "1.25rem", fontWeight: 800 }}>Remuneration Architecture</h3>
+                                <p style={{ fontSize: "0.875rem", color: "var(--text-tertiary)", fontWeight: 500, marginTop: "4px" }}>Defining the financial structure for institutional roles</p>
+                            </div>
+                            <button className="btn btn-primary" onClick={() => setShowSalaryForm(!showSalaryForm)} style={{ height: "44px", padding: "0 24px", borderRadius: "12px", fontWeight: 800, fontSize: "0.875rem", boxShadow: "0 6px 12px rgba(37, 99, 235, 0.15)" }}>
                                 {showSalaryForm ? "Dismiss Command" : "Define New Structure"}
                             </button>
                         </div>
@@ -122,20 +131,20 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
                         <div className="data-table-wrapper" style={{ border: "none", borderRadius: 0 }}>
                             <table className="data-table">
                                 <thead>
-                                    <tr style={{ background: "var(--bg-secondary)" }}>
-                                        <th style={{ paddingLeft: "24px" }}>Validity Period</th>
-                                        <th className="text-right">Base Remuneration</th>
-                                        <th className="text-right">Benefit Allowances</th>
-                                        <th className="text-right">Gross Total</th>
-                                        <th style={{ paddingRight: "24px" }}>Term Status</th>
+                                    <tr style={{ background: "#fcfcfc" }}>
+                                        <th style={{ paddingLeft: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Validity Period</th>
+                                        <th className="text-right" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Base Remuneration</th>
+                                        <th className="text-right" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Benefit Allowances</th>
+                                        <th className="text-right" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Gross Total</th>
+                                        <th style={{ paddingRight: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Term Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {staff.salaryStructures?.length === 0 ? (
                                         <tr>
                                             <td colSpan={5}>
-                                                <div className="empty-state" style={{ padding: "var(--space-3xl)" }}>
-                                                    <p style={{ fontWeight: 800, fontSize: "1.125rem", color: "var(--text-primary)" }}>No compensation data</p>
+                                                <div className="empty-state" style={{ padding: "60px 24px" }}>
+                                                    <p style={{ fontWeight: 800, fontSize: "1.125rem", color: "var(--text-primary)" }}>Zero compensation data</p>
                                                     <p style={{ color: "var(--text-tertiary)", fontWeight: 500, marginTop: "4px" }}>Mapped architecture is required for payroll processing.</p>
                                                 </div>
                                             </td>
@@ -143,27 +152,27 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
                                     ) : (
                                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                         staff.salaryStructures?.map((ss: any) => (
-                                            <tr key={ss.id}>
-                                                <td style={{ paddingLeft: "24px", fontWeight: 700, color: "var(--text-primary)" }}>
+                                            <tr key={ss.id} style={{ borderBottom: "1px solid var(--border-default)" }}>
+                                                <td style={{ paddingLeft: "24px", fontWeight: 800, color: "var(--text-primary)" }}>
                                                     {new Date(ss.effectiveFrom).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                                                     <span style={{ margin: "0 12px", opacity: 0.3, fontWeight: 400 }}>→</span>
-                                                    {ss.effectiveTo ? new Date(ss.effectiveTo).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : <span style={{ color: "var(--status-paid)", fontWeight: 800, letterSpacing: "0.02em" }}>PERMANENT</span>}
+                                                    {ss.effectiveTo ? new Date(ss.effectiveTo).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : <span style={{ color: "var(--status-paid)", fontWeight: 900, letterSpacing: "0.02em" }}>PERMANENT</span>}
                                                 </td>
-                                                <td className="text-right font-mono" style={{ fontWeight: 700, color: "var(--text-secondary)" }}>₹{ss.base.toLocaleString()}</td>
-                                                <td className="text-right font-mono" style={{ color: "var(--status-partial)", fontWeight: 700 }}>₹{ss.allowances.toLocaleString()}</td>
+                                                <td className="text-right font-mono" style={{ fontWeight: 800, color: "var(--text-secondary)" }}>₹{ss.base.toLocaleString()}</td>
+                                                <td className="text-right font-mono" style={{ color: "var(--status-partial)", fontWeight: 800 }}>₹{ss.allowances.toLocaleString()}</td>
                                                 <td className="text-right font-mono" style={{ fontWeight: 900, color: "var(--text-primary)", fontSize: "1.0625rem" }}>₹{(ss.base + ss.allowances).toLocaleString()}</td>
                                                 <td style={{ paddingRight: "24px" }}>
                                                     {!ss.effectiveTo ? (
                                                         <span style={{
-                                                            background: "var(--status-paid-bg)",
+                                                            background: "rgba(16, 185, 129, 0.06)",
                                                             color: "var(--status-paid)",
                                                             fontWeight: 900,
                                                             fontSize: "0.625rem",
                                                             textTransform: "uppercase",
                                                             letterSpacing: "0.06em",
-                                                            padding: "4px 12px",
+                                                            padding: "5px 16px",
                                                             borderRadius: "100px",
-                                                            border: "1px solid rgba(16, 185, 129, 0.2)"
+                                                            border: "1px solid currentColor"
                                                         }}>ACTIVE</span>
                                                     ) : (
                                                         <span style={{
@@ -173,7 +182,7 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
                                                             fontSize: "0.625rem",
                                                             textTransform: "uppercase",
                                                             letterSpacing: "0.04em",
-                                                            padding: "4px 12px",
+                                                            padding: "5px 16px",
                                                             borderRadius: "100px",
                                                             border: "1px solid var(--border-default)"
                                                         }}>ARCHIVED</span>
@@ -191,27 +200,28 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
 
             {/* Payroll Tab */}
             {activeTab === "payroll" && (
-                <div className="section-card" style={{ background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
-                    <div className="section-header" style={{ padding: "24px", borderBottom: "1px solid var(--border-default)" }}>
+                <div className="section-card" style={{ background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)", borderRadius: "20px", overflow: "hidden" }}>
+                    <div className="section-header" style={{ padding: "24px", background: "linear-gradient(to right, #ffffff, #fcfcfc)", borderBottom: "1px solid var(--border-default)" }}>
                         <h3 style={{ fontSize: "1.25rem", fontWeight: 800 }}>Disbursement Timeline</h3>
+                        <p style={{ fontSize: "0.875rem", color: "var(--text-tertiary)", fontWeight: 500, marginTop: "4px" }}>Sequential record of finalized salary payments</p>
                     </div>
                     <div className="data-table-wrapper" style={{ border: "none", borderRadius: 0 }}>
                         <table className="data-table">
                             <thead>
-                                <tr style={{ background: "var(--bg-secondary)" }}>
-                                    <th style={{ paddingLeft: "24px" }}>Settlement Cycle</th>
-                                    <th className="text-right">Gross Pay</th>
-                                    <th className="text-right">Adjustments</th>
-                                    <th className="text-right">Net Value</th>
-                                    <th className="text-right">Actual Paid</th>
-                                    <th style={{ paddingRight: "24px" }}>Status</th>
+                                <tr style={{ background: "#fcfcfc" }}>
+                                    <th style={{ paddingLeft: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Settlement Cycle</th>
+                                    <th className="text-right" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Gross Pay</th>
+                                    <th className="text-right" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Adjustments</th>
+                                    <th className="text-right" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Net Value</th>
+                                    <th className="text-right" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Actual Paid</th>
+                                    <th style={{ paddingRight: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {staff.payrollEntries?.length === 0 ? (
                                     <tr>
                                         <td colSpan={6}>
-                                            <div className="empty-state" style={{ padding: "var(--space-3xl)" }}>
+                                            <div className="empty-state" style={{ padding: "60px 24px" }}>
                                                 <p style={{ fontWeight: 800, fontSize: "1.125rem", color: "var(--text-primary)" }}>Zero disbursement history</p>
                                                 <p style={{ color: "var(--text-tertiary)", fontWeight: 500, marginTop: "4px" }}>No payroll cycles have been finalized for this personnel.</p>
                                             </div>
@@ -224,25 +234,25 @@ export default function StaffDetailClient({ staff }: { staff: StaffData }) {
                                         const isPartial = pe.paidAmount > 0 && pe.pendingBalance > 0;
 
                                         return (
-                                            <tr key={pe.id}>
-                                                <td style={{ paddingLeft: "24px", fontWeight: 800, color: "var(--text-primary)" }}>
+                                            <tr key={pe.id} style={{ borderBottom: "1px solid var(--border-default)" }}>
+                                                <td style={{ paddingLeft: "24px", fontWeight: 900, color: "var(--text-primary)" }}>
                                                     {new Date(pe.year, pe.month - 1).toLocaleDateString("en-US", { month: "long", year: "numeric" }).toUpperCase()}
                                                 </td>
-                                                <td className="text-right font-mono" style={{ fontWeight: 700, color: "var(--text-secondary)" }}>₹{pe.grossSalary.toLocaleString()}</td>
-                                                <td className="text-right font-mono" style={{ color: "var(--status-overdue)", fontWeight: 700 }}>−₹{pe.deductions.toLocaleString()}</td>
+                                                <td className="text-right font-mono" style={{ fontWeight: 800, color: "var(--text-secondary)" }}>₹{pe.grossSalary.toLocaleString()}</td>
+                                                <td className="text-right font-mono" style={{ color: "var(--status-overdue)", fontWeight: 800 }}>−₹{pe.deductions.toLocaleString()}</td>
                                                 <td className="text-right font-mono" style={{ fontWeight: 900, color: "var(--text-primary)", fontSize: "1.0625rem" }}>₹{pe.netPayable.toLocaleString()}</td>
                                                 <td className="text-right font-mono" style={{ color: "var(--status-paid)", fontWeight: 900 }}>₹{pe.paidAmount.toLocaleString()}</td>
                                                 <td style={{ paddingRight: "24px" }}>
                                                     <span style={{
-                                                        background: isFullyPaid ? "var(--status-paid-bg)" : isPartial ? "var(--status-partial-bg)" : "var(--status-pending-bg)",
-                                                        color: isFullyPaid ? "var(--status-paid)" : isPartial ? "var(--status-partial)" : "var(--text-tertiary)",
+                                                        background: isFullyPaid ? "rgba(16, 185, 129, 0.06)" : isPartial ? "rgba(245, 158, 11, 0.06)" : "rgba(239, 68, 68, 0.06)",
+                                                        color: isFullyPaid ? "var(--status-paid)" : isPartial ? "var(--status-partial)" : "var(--status-overdue)",
                                                         fontWeight: 900,
                                                         fontSize: "0.625rem",
                                                         textTransform: "uppercase",
                                                         letterSpacing: "0.06em",
-                                                        padding: "4px 14px",
+                                                        padding: "5px 16px",
                                                         borderRadius: "100px",
-                                                        border: isFullyPaid ? "1px solid rgba(16, 185, 129, 0.2)" : isPartial ? "1px solid rgba(245, 158, 11, 0.2)" : "1px solid var(--border-default)"
+                                                        border: "1px solid currentColor"
                                                     }}>
                                                         {isFullyPaid ? "Cleared" : isPartial ? "Partial" : "Arrears"}
                                                     </span>

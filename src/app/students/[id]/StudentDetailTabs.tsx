@@ -24,14 +24,15 @@ export default function StudentDetailTabs({ student }: { student: StudentData })
     ];
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-xl)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             <div className="tabs" style={{
-                background: "var(--bg-secondary)",
+                background: "#ffffff",
                 padding: "6px",
-                borderRadius: "14px",
+                borderRadius: "16px",
                 display: "inline-flex",
                 width: "fit-content",
-                border: "1px solid var(--border-default)"
+                border: "1px solid var(--border-default)",
+                boxShadow: "var(--shadow-sm)"
             }}>
                 {tabs.map((tab) => (
                     <button
@@ -39,11 +40,16 @@ export default function StudentDetailTabs({ student }: { student: StudentData })
                         className={`tab ${activeTab === tab.id ? "active" : ""}`}
                         onClick={() => setActiveTab(tab.id)}
                         style={{
-                            padding: "10px 28px",
+                            padding: "10px 32px",
                             fontSize: "0.875rem",
                             fontWeight: 800,
-                            borderRadius: "10px",
-                            transition: "all 0.2s ease"
+                            borderRadius: "12px",
+                            transition: "all 0.2s ease",
+                            background: activeTab === tab.id ? "var(--accent-primary)" : "transparent",
+                            color: activeTab === tab.id ? "#ffffff" : "var(--text-tertiary)",
+                            boxShadow: activeTab === tab.id ? "0 4px 12px rgba(37, 99, 235, 0.2)" : "none",
+                            border: "none",
+                            cursor: "pointer"
                         }}
                     >
                         {tab.label}
@@ -53,50 +59,50 @@ export default function StudentDetailTabs({ student }: { student: StudentData })
 
             {/* Profile Tab */}
             {activeTab === "profile" && (
-                <div className="section-card" style={{ padding: "var(--space-2xl)", background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
-                    <div className="section-header" style={{ marginBottom: "var(--space-2xl)", padding: 0, border: "none" }}>
-                        <h3 style={{ fontSize: "1.25rem", fontWeight: 800 }}>Biographical Information</h3>
+                <div className="section-card" style={{ padding: "32px", background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)", borderRadius: "20px" }}>
+                    <div className="section-header" style={{ marginBottom: "32px", padding: 0, border: "none" }}>
+                        <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)" }}>Biographical Information</h3>
                     </div>
-                    <div className="form-grid" style={{ gap: "var(--space-xl) var(--space-2xl)" }}>
+                    <div className="form-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "32px 40px" }}>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Legal Identity</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Legal Identity</div>
                             <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{student.firstName} {student.lastName}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Institutional Identifier</div>
-                            <div style={{ fontWeight: 800, color: "var(--accent-primary)", fontSize: "1.0625rem" }} className="font-mono">{student.studentCode}</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Institutional Identifier</div>
+                            <div style={{ fontWeight: 900, color: "var(--accent-primary)", fontSize: "1.0625rem", background: "rgba(37, 99, 235, 0.04)", padding: "4px 12px", borderRadius: "8px", border: "1px solid rgba(37, 99, 235, 0.08)", width: "fit-content" }} className="font-mono">{student.studentCode}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Academic Program</div>
-                            <div style={{ fontWeight: 700, color: "var(--text-secondary)", fontSize: "1.0625rem" }}>{student.course?.name}</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Academic Program</div>
+                            <div style={{ fontWeight: 800, color: "var(--text-secondary)", fontSize: "1.0625rem" }}>{student.course?.name}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Academic Cohort</div>
-                            <div style={{ fontWeight: 700, color: "var(--text-secondary)", fontSize: "1.0625rem" }}>{student.batch?.name}</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Academic Cohort</div>
+                            <div style={{ fontWeight: 800, color: "var(--text-secondary)", fontSize: "1.0625rem" }}>{student.batch?.name}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Primary Legal Guardian</div>
-                            <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{student.primaryParentName}</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Primary Legal Guardian</div>
+                            <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{student.primaryParentName}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Secondary Legal Guardian</div>
-                            <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{student.secondaryParentName || <span style={{ color: "var(--text-tertiary)", fontWeight: 500 }}>Not Specified</span>}</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Secondary Legal Guardian</div>
+                            <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{student.secondaryParentName || <span style={{ color: "var(--text-tertiary)", fontWeight: 500 }}>Not Specified</span>}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Primary Communication</div>
-                            <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{student.primaryPhone}</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Primary Communication</div>
+                            <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{student.primaryPhone}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Alternative Communication</div>
-                            <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{student.secondaryPhone || <span style={{ color: "var(--text-tertiary)", fontWeight: 500 }}>Not Specified</span>}</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Alternative Communication</div>
+                            <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{student.secondaryPhone || <span style={{ color: "var(--text-tertiary)", fontWeight: 500 }}>Not Specified</span>}</div>
                         </div>
                         <div style={{ gridColumn: "1 / -1" }}>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Residential Domicile</div>
-                            <div style={{ fontWeight: 600, color: "var(--text-secondary)", lineHeight: 1.6, fontSize: "1.0625rem" }}>{student.address || "—"}</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Residential Domicile</div>
+                            <div style={{ fontWeight: 700, color: "var(--text-secondary)", lineHeight: 1.6, fontSize: "1.0625rem" }}>{student.address || "—"}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: "0.6875rem", fontWeight: 800, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>Matriculation Date</div>
-                            <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{new Date(student.enrollmentDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</div>
+                            <div style={{ fontSize: "0.6875rem", fontWeight: 900, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Matriculation Date</div>
+                            <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.0625rem" }}>{new Date(student.enrollmentDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</div>
                         </div>
                     </div>
                 </div>
@@ -105,10 +111,10 @@ export default function StudentDetailTabs({ student }: { student: StudentData })
 
             {/* Financials Tab */}
             {activeTab === "financials" && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-xl)" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
                     {/* Payment Form Expansion */}
                     {showPayment && student.feePlans?.[0] && (
-                        <div className="section-card" style={{ padding: "var(--space-2xl)", background: "var(--bg-secondary)", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
+                        <div className="section-card" style={{ padding: "32px", background: "linear-gradient(135deg, #ffffff 0%, #fcfcfc 100%)", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)", borderRadius: "20px" }}>
                             <PaymentForm
                                 studentId={student.id}
                                 feePlanId={student.feePlans[0].id}
@@ -127,22 +133,25 @@ export default function StudentDetailTabs({ student }: { student: StudentData })
                             padding: "24px",
                             background: "rgba(16, 185, 129, 0.04)",
                             border: "1px solid rgba(16, 185, 129, 0.15)",
-                            borderRadius: "16px",
+                            borderRadius: "20px",
                             boxShadow: "var(--shadow-sm)"
                         }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-lg)" }}>
-                                <h4 style={{ color: "var(--status-paid)", fontWeight: 800, fontSize: "1.125rem" }}>Documented Transaction Receipt</h4>
-                                <button className="btn btn-secondary btn-sm" onClick={() => setPaymentResult(null)} style={{ fontWeight: 800, padding: "0 20px", borderRadius: "10px" }}>Acknowledge</button>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                                <h4 style={{ color: "var(--status-paid)", fontWeight: 900, fontSize: "1.125rem", letterSpacing: "-0.02em" }}>Documented Transaction Receipt</h4>
+                                <button className="btn btn-secondary btn-sm" onClick={() => setPaymentResult(null)} style={{ fontWeight: 800, padding: "0 20px", borderRadius: "10px", background: "#ffffff", border: "1px solid var(--border-default)" }}>Acknowledge</button>
                             </div>
-                            <pre style={{ fontSize: "0.8125rem", whiteSpace: "pre-wrap", color: "var(--text-secondary)", fontFamily: "monospace", background: "white", padding: "20px", borderRadius: "12px", border: "1px solid var(--border-default)", lineHeight: 1.6 }}>
+                            <pre style={{ fontSize: "0.8125rem", whiteSpace: "pre-wrap", color: "var(--text-secondary)", fontFamily: "monospace", background: "white", padding: "20px", borderRadius: "14px", border: "1px solid var(--border-default)", lineHeight: 1.6 }}>
                                 {JSON.stringify(paymentResult.whatsappPayload, null, 2)}
                             </pre>
                         </div>
                     )}
 
-                    <div className="section-card" style={{ background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
-                        <div className="section-header" style={{ padding: "24px", background: "var(--bg-secondary)", borderBottom: "1px solid var(--border-default)" }}>
-                            <h3 style={{ fontSize: "1.25rem", fontWeight: 800 }}>Financial Transaction Ledger</h3>
+                    <div className="section-card" style={{ background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)", borderRadius: "20px", overflow: "hidden" }}>
+                        <div className="section-header" style={{ padding: "24px", background: "linear-gradient(to right, #ffffff, #fcfcfc)", borderBottom: "1px solid var(--border-default)" }}>
+                            <div>
+                                <h3 style={{ fontSize: "1.25rem", fontWeight: 800 }}>Financial Transaction Ledger</h3>
+                                <p style={{ fontSize: "0.875rem", color: "var(--text-tertiary)", fontWeight: 500, marginTop: "4px" }}>Audit trail of all institutional collections and charges</p>
+                            </div>
                             {student.feePlans?.length > 0 && (
                                 <button
                                     className={`btn ${showPayment ? "btn-secondary" : "btn-primary"}`}
@@ -163,19 +172,19 @@ export default function StudentDetailTabs({ student }: { student: StudentData })
                         <div className="data-table-wrapper" style={{ border: "none", borderRadius: 0 }}>
                             <table className="data-table">
                                 <thead>
-                                    <tr>
-                                        <th style={{ paddingLeft: "24px" }}>Settlement Date</th>
-                                        <th>Classification</th>
-                                        <th className="text-right">Monetary Value</th>
-                                        <th style={{ paddingRight: "24px" }}>Administrative Summary</th>
+                                    <tr style={{ background: "#fcfcfc" }}>
+                                        <th style={{ paddingLeft: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Settlement Date</th>
+                                        <th style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Classification</th>
+                                        <th className="text-right" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Monetary Value</th>
+                                        <th style={{ paddingRight: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Administrative Summary</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {!student.feeLedger || student.feeLedger.length === 0 ? (
                                         <tr>
                                             <td colSpan={4}>
-                                                <div className="empty-state" style={{ padding: "var(--space-3xl)" }}>
-                                                    <p style={{ fontWeight: 700, color: "var(--text-tertiary)" }}>No financial activity records identified</p>
+                                                <div className="empty-state" style={{ padding: "60px 24px" }}>
+                                                    <p style={{ fontWeight: 800, color: "var(--text-tertiary)", fontSize: "1rem" }}>No financial activity records identified</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -188,35 +197,34 @@ export default function StudentDetailTabs({ student }: { student: StudentData })
                                             const isDiscount = entry.type === "DISCOUNT";
 
                                             return (
-                                                <tr key={entry.id}>
-                                                    <td style={{ paddingLeft: "24px", color: "var(--text-secondary)", fontWeight: 700, fontSize: "0.875rem" }}>
+                                                <tr key={entry.id} style={{ borderBottom: "1px solid var(--border-default)" }}>
+                                                    <td style={{ paddingLeft: "24px", color: "var(--text-secondary)", fontWeight: 800, fontSize: "0.875rem" }}>
                                                         {new Date(entry.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                                                     </td>
                                                     <td>
                                                         <span style={{
-                                                            background: isPayment ? "var(--status-paid-bg)" : isCharge ? "var(--status-overdue-bg)" : isDiscount ? "var(--status-partial-bg)" : "var(--status-pending-bg)",
+                                                            background: isPayment ? "rgba(16, 185, 129, 0.06)" : isCharge ? "rgba(239, 68, 68, 0.06)" : isDiscount ? "rgba(245, 158, 11, 0.06)" : "var(--bg-secondary)",
                                                             color: isPayment ? "var(--status-paid)" : isCharge ? "var(--status-overdue)" : isDiscount ? "var(--status-partial)" : "var(--text-tertiary)",
                                                             fontWeight: 900,
                                                             fontSize: "0.625rem",
                                                             textTransform: "uppercase",
-                                                            padding: "4px 12px",
+                                                            padding: "5px 14px",
                                                             borderRadius: "100px",
                                                             letterSpacing: "0.06em",
-                                                            border: "1px solid currentColor",
-                                                            opacity: 0.9
+                                                            border: "1px solid currentColor"
                                                         }}>
                                                             {entry.type}
                                                         </span>
                                                     </td>
                                                     <td className="text-right font-mono" style={{
                                                         fontWeight: 900,
-                                                        fontSize: "1rem",
+                                                        fontSize: "1.0625rem",
                                                         color: isCharge ? "var(--text-primary)" : isPayment ? "var(--status-paid)" : "var(--status-partial)",
                                                         letterSpacing: "-0.02em"
                                                     }}>
                                                         {isPayment || isDiscount ? "−" : "+"}₹{entry.amount.toLocaleString()}
                                                     </td>
-                                                    <td style={{ paddingRight: "24px", color: "var(--text-tertiary)", fontWeight: 600, fontSize: "0.875rem" }}>
+                                                    <td style={{ paddingRight: "24px", color: "var(--text-tertiary)", fontWeight: 700, fontSize: "0.875rem" }}>
                                                         {meta.description || meta.paymentMode || "Standard Record Entry"}
                                                     </td>
                                                 </tr>
@@ -232,45 +240,47 @@ export default function StudentDetailTabs({ student }: { student: StudentData })
 
             {/* Attendance Tab */}
             {activeTab === "attendance" && (
-                <div className="section-card" style={{ background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
-                    <div className="section-header" style={{ padding: "24px", background: "var(--bg-secondary)", borderBottom: "1px solid var(--border-default)" }}>
+                <div className="section-card" style={{ background: "#ffffff", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)", borderRadius: "20px", overflow: "hidden" }}>
+                    <div className="section-header" style={{ padding: "24px", background: "linear-gradient(to right, #ffffff, #fcfcfc)", borderBottom: "1px solid var(--border-default)" }}>
                         <h3 style={{ fontSize: "1.25rem", fontWeight: 800 }}>Attendance Operational Logs</h3>
+                        <p style={{ fontSize: "0.875rem", color: "var(--text-tertiary)", fontWeight: 500, marginTop: "4px" }}>Daily presence validation and institutional records</p>
                     </div>
                     <div className="data-table-wrapper" style={{ border: "none", borderRadius: 0 }}>
                         <table className="data-table">
                             <thead>
-                                <tr>
-                                    <th style={{ paddingLeft: "24px" }}>Calendar Date</th>
-                                    <th>Presence Status</th>
-                                    <th style={{ paddingRight: "24px" }}>Validator Identity</th>
+                                <tr style={{ background: "#fcfcfc" }}>
+                                    <th style={{ paddingLeft: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Calendar Date</th>
+                                    <th style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Presence Status</th>
+                                    <th style={{ paddingRight: "24px", fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)" }}>Validator Identity</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {!student.attendance || student.attendance.length === 0 ? (
                                     <tr>
                                         <td colSpan={3}>
-                                            <div className="empty-state" style={{ padding: "var(--space-3xl)" }}>
-                                                <p style={{ fontWeight: 700, color: "var(--text-tertiary)" }}>No operational attendance logs discovered</p>
+                                            <div className="empty-state" style={{ padding: "60px 24px" }}>
+                                                <p style={{ fontWeight: 800, color: "var(--text-tertiary)", fontSize: "1rem" }}>No operational attendance logs discovered</p>
                                             </div>
                                         </td>
                                     </tr>
                                 ) : (
                                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                     student.attendance.map((record: any) => (
-                                        <tr key={record.id}>
+                                        <tr key={record.id} style={{ borderBottom: "1px solid var(--border-default)" }}>
                                             <td style={{ paddingLeft: "24px", fontWeight: 800, color: "var(--text-primary)", fontSize: "0.9375rem" }}>
                                                 {new Date(record.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                                             </td>
                                             <td>
                                                 <span style={{
-                                                    background: record.status === "PRESENT" ? "var(--status-paid-bg)" : record.status === "ABSENT" ? "var(--status-overdue-bg)" : "var(--status-partial-bg)",
+                                                    background: record.status === "PRESENT" ? "rgba(16, 185, 129, 0.06)" : record.status === "ABSENT" ? "rgba(239, 68, 68, 0.06)" : "rgba(245, 158, 11, 0.06)",
                                                     color: record.status === "PRESENT" ? "var(--status-paid)" : record.status === "ABSENT" ? "var(--status-overdue)" : "var(--status-partial)",
                                                     fontWeight: 900,
                                                     fontSize: "0.6875rem",
                                                     textTransform: "uppercase",
-                                                    padding: "5px 16px",
+                                                    padding: "6px 18px",
                                                     borderRadius: "100px",
-                                                    letterSpacing: "0.04em"
+                                                    letterSpacing: "0.06em",
+                                                    border: "1px solid currentColor"
                                                 }}>
                                                     {record.status}
                                                 </span>

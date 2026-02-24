@@ -18,34 +18,34 @@ export default function CollectionsFilter({ courses }: Props) {
     };
 
     return (
-        <div className="filters-row" style={{ display: "flex", gap: "var(--space-lg)", alignItems: "flex-end", width: "100%", paddingBottom: "var(--space-lg)" }}>
+        <div className="filters-row" style={{ display: "flex", gap: "var(--space-xl)", alignItems: "flex-end", width: "100%" }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label" style={{ fontSize: "0.6875rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-tertiary)", marginBottom: "6px" }}>Period Start</label>
+                <label className="form-label" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)", marginBottom: "8px" }}>Period Start</label>
                 <input
                     type="date"
                     className="form-input"
                     value={searchParams.get("startDate") || ""}
                     onChange={(e) => updateParam("startDate", e.target.value)}
-                    style={{ width: 170, height: "44px", background: "var(--bg-secondary)", borderRadius: "12px", border: "1px solid var(--border-default)", fontWeight: 600 }}
+                    style={{ width: 180, height: "48px", background: "#ffffff", borderRadius: "12px", border: "1px solid var(--border-default)", fontWeight: 700, fontSize: "0.9375rem" }}
                 />
             </div>
             <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label" style={{ fontSize: "0.6875rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-tertiary)", marginBottom: "6px" }}>Period End</label>
+                <label className="form-label" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)", marginBottom: "8px" }}>Period End</label>
                 <input
                     type="date"
                     className="form-input"
                     value={searchParams.get("endDate") || ""}
                     onChange={(e) => updateParam("endDate", e.target.value)}
-                    style={{ width: 170, height: "44px", background: "var(--bg-secondary)", borderRadius: "12px", border: "1px solid var(--border-default)", fontWeight: 600 }}
+                    style={{ width: 180, height: "48px", background: "#ffffff", borderRadius: "12px", border: "1px solid var(--border-default)", fontWeight: 700, fontSize: "0.9375rem" }}
                 />
             </div>
-            <div className="form-group" style={{ marginBottom: 0, flex: 1, maxWidth: "280px" }}>
-                <label className="form-label" style={{ fontSize: "0.6875rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-tertiary)", marginBottom: "6px" }}>Academic Program</label>
+            <div className="form-group" style={{ marginBottom: 0, flex: 1, maxWidth: "340px" }}>
+                <label className="form-label" style={{ fontSize: "0.6875rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)", marginBottom: "8px" }}>Academic Program</label>
                 <select
                     className="form-select"
                     value={searchParams.get("courseId") || ""}
                     onChange={(e) => updateParam("courseId", e.target.value)}
-                    style={{ width: "100%", height: "44px", background: "var(--bg-secondary)", borderRadius: "12px", border: "1px solid var(--border-default)", fontWeight: 600, fontSize: "0.875rem" }}
+                    style={{ width: "100%", height: "48px", background: "#ffffff", borderRadius: "12px", border: "1px solid var(--border-default)", fontWeight: 700, fontSize: "0.9375rem" }}
                 >
                     <option value="">All Academic Disciplines</option>
                     {courses.map((c) => (
