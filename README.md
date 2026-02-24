@@ -1,76 +1,71 @@
-# LuminaMIS — Institute Management System
+# LuminaMIS — Advanced Institute Management System
 
-A robust, secure, and performant management system for educational institutions, designed to handle student enrollment, financial tracking, payroll management, and attendance.
+LuminaMIS is a comprehensive, enterprise-grade administrative platform designed for modern educational institutions. It provides a centralized hub for managing the entire student lifecycle, institutional finances, and staff operations with high precision and security.
 
-## 🚀 Features
+## 🏗️ System Architecture
 
-- **Student Management**: Comprehensive student records, enrollment tracking, and academic history.
-- **Financial Module**: Fee plan creation, payment recording, and automated dues reporting.
-- **Payroll System**: Staff management, salary structure definition, and monthly payroll processing.
-- **Attendance Tracking**: Real-time student attendance monitoring with automated notifications.
-- **Dashboard & Analytics**: High-level overview of institutional health and financial metrics.
-- **WhatsApp Integration**: Automated notifications for fee payments and attendance status.
+LuminaMIS utilizes a cutting-edge full-stack architecture built on Next.js 15, ensuring seamless data flow and robust security.
 
-## 🛠️ Tech Stack
+```mermaid
+graph TD
+    User((User/Admin)) -->|HTTPS| NextJS[Next.js App Router]
+    subgraph "Secure Application Layer"
+        NextJS --> MW[Middleware: Supabase Auth]
+        MW -->|Authenticated| SA[Server Actions]
+        SA -->|Validation| Zod[Zod Schemas]
+        SA -->|Query| Prisma[Prisma ORM]
+    end
+    subgraph "Data Layer"
+        Prisma --> DB[(LibSQL / SQLite)]
+    end
+    SA -->|Async| WA[WhatsApp Cloud API]
+```
 
-- **Framework**: [Next.js 15+](https://nextjs.org/) (App Router)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Database**: [LibSQL](https://turso.tech/libsql) via [Prisma ORM](https://www.prisma.io/)
-- **Authentication**: [Supabase Auth](https://supabase.com/auth)
-- **Styling**: Modern CSS with CSS Variables
-- **Validation**: [Zod](https://zod.dev/)
+## 🔄 Business Logic & Data Flow
 
-## 🏁 Getting Started
+### 🔐 Authentication Layer
+The system implements a **Zero-Trust** security model for all administrative functions.
+- **Session Management**: Handled via Supabase SSR with secure, encrypted cookies.
+- **Middleware Protection**: Every route is protected at the edge, verifying JWT tokens before reaching server components.
+- **Action Hardening**: Server actions (like `login`) implement rigorous input type checking and sanitization.
 
-### Prerequisites
+### 💸 Financial Processing
+The financial engine ensures 100% accuracy in ledger management.
+1. **Initiation**: Admin records a fee payment through the `recordPayment` Server Action.
+2. **Atomicity**: A Prisma `$transaction` is used to ensure that the ledger entry creation and fee plan updates happen as a single atomic unit.
+3. **Real-time Aggregation**: Instead of manual calculation, the system uses DB-level `groupBy` and `_sum` for instant, high-performance balance updates.
+4. **Notification**: Post-transaction, a WhatsApp payload is constructed and dispatched to parents.
 
-- Node.js 20.x or later
-- npm or pnpm
+## 📦 Core Modules
 
-### Installation
+### 👨‍🎓 Students & Enrollment
+- **`getStudents`**: Advanced filtering with case-insensitive search and optimized pagination.
+- **`createStudent`**: Full profile management with automated student code generation.
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd distant-quasar
-   ```
+### 💰 Finance & Collections
+- **Automated Dues**: Identifies outstanding balances across the entire student body using optimized DB queries.
+- **Ledger Audit**: Complete history of every CHARGE, DISCOUNT, and PAYMENT.
 
-2. Install dependencies:
-   ```bash
-   npm install --legacy-peer-deps
-   ```
-   *Note: `--legacy-peer-deps` is required due to specific adapter version constraints.*
+### 📋 Payroll & Staffing
+- **Salary Structures**: Flexible base + allowance modeling with effective date tracking.
+- **Monthly Processing**: One-click payroll generation with deduction handling and payment history.
 
-3. Environment Setup:
-   Create a `.env` file in the root directory and add your credentials:
-   ```env
-   DATABASE_URL="file:./dev.db"
-   NEXT_PUBLIC_SUPABASE_URL="your-supabase-url"
-   NEXT_PUBLIC_SUPABASE_ANON_KEY="your-supabase-anon-key"
-   ```
+## 🛠️ Technical Specifications
 
-4. Database Initialization:
-   ```bash
-   npx prisma generate
-   npx prisma db push
-   ```
+| Component | Technology |
+| :--- | :--- |
+| **Framework** | Next.js 15 (App Router) |
+| **Language** | TypeScript |
+| **Database** | LibSQL (Distributed SQLite) |
+| **ORM** | Prisma |
+| **Auth** | Supabase Auth + SSR |
+| **Notifications**| WhatsApp Cloud API |
 
-5. Run the development server:
-   ```bash
-   npm run dev
-   ```
+## 🏁 Development Setup
 
-## 🛡️ Security
-
-This project follows a "Security First" approach:
-- **No Public Signup**: Administrative access is strictly controlled. Unauthorized account creation is disabled.
-- **Input Validation**: All data entry points are protected by strict Zod schema validation.
-- **Secure Sessions**: Authentication is handled via Supabase SSR with secure cookie management.
-- **Defense in Depth**: Multi-layered protection against SQL injection, XSS, and CSRF.
-
-## 📜 License
-
-This project is proprietary. © 2026 Lumina Analytics.
+1. **Install dependencies**: `npm install --legacy-peer-deps`
+2. **Configure Database**: `npx prisma db push`
+3. **Start Development**: `npm run dev`
 
 ---
-*Maintained by Sentinel 🛡️*
+*Maintained by Sentinel 🛡️ — Guardian of Security & Architecture*
