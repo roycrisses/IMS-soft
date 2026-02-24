@@ -42,66 +42,67 @@ export default function Sidebar() {
             top: 0,
             bottom: 0,
             width: "var(--sidebar-width)",
-            background: "var(--bg-primary)",
+            background: "#ffffff",
             borderRight: "1px solid var(--border-default)",
             display: "flex",
             flexDirection: "column",
             zIndex: 50,
             overflow: "hidden",
+            boxShadow: "4px 0 24px rgba(0, 0, 0, 0.02)"
         }}>
-            {/* Logo */}
+            {/* Logo Section */}
             <div style={{
-                padding: "var(--space-xl)",
-                borderBottom: "1px solid var(--border-default)",
-                background: "linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary))",
+                padding: "32px 24px",
+                background: "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)",
+                position: "relative"
             }}>
                 <div style={{
-                    fontSize: "1.125rem",
-                    fontWeight: 700,
+                    fontSize: "1.25rem",
+                    fontWeight: 900,
                     color: "var(--text-primary)",
-                    letterSpacing: "-0.025em",
+                    letterSpacing: "-0.04em",
                     display: "flex",
                     alignItems: "center",
-                    gap: "8px",
+                    gap: "10px",
                 }}>
                     <div style={{
-                        width: "10px",
-                        height: "10px",
-                        borderRadius: "3px",
+                        width: "12px",
+                        height: "12px",
+                        borderRadius: "4px",
                         background: "var(--accent-primary)",
-                        boxShadow: "0 2px 8px rgba(37, 99, 235, 0.4)",
+                        boxShadow: "0 4px 12px rgba(37, 99, 235, 0.4)",
                         transform: "rotate(45deg)",
                     }} />
-                    Lumina<span style={{ color: "var(--accent-primary)", fontWeight: 800 }}>MIS</span>
+                    Lumina<span style={{ color: "var(--accent-primary)" }}>MIS</span>
                 </div>
                 <div style={{
-                    fontSize: "0.6875rem",
+                    fontSize: "0.625rem",
                     color: "var(--text-tertiary)",
-                    marginTop: "6px",
+                    marginTop: "8px",
                     textTransform: "uppercase",
-                    letterSpacing: "0.15em",
-                    fontWeight: 600,
+                    letterSpacing: "0.2em",
+                    fontWeight: 800,
+                    opacity: 0.8
                 }}>
-                    Academic Excellence
+                    Institutional Core
                 </div>
             </div>
 
-
-
-            {/* Nav */}
-            <nav style={{ flex: 1, padding: "var(--space-md)", overflowY: "auto" }}>
+            {/* Navigation */}
+            <nav style={{ flex: 1, padding: "16px 12px", overflowY: "auto" }}>
                 {navItems.map((item) => {
                     if (item.children) {
                         return (
-                            <div key={item.label} style={{ marginBottom: "var(--space-xs)" }}>
+                            <div key={item.label} style={{ marginBottom: "24px" }}>
                                 <div style={{
-                                    padding: "var(--space-sm) var(--space-md)",
-                                    fontSize: "0.6875rem",
-                                    fontWeight: 600,
+                                    padding: "0 12px",
+                                    fontSize: "0.625rem",
+                                    fontWeight: 900,
                                     color: "var(--text-tertiary)",
                                     textTransform: "uppercase",
-                                    letterSpacing: "0.08em",
-                                    marginTop: "var(--space-md)",
+                                    letterSpacing: "0.12em",
+                                    marginBottom: "12px",
+                                    opacity: 0.6
                                 }}>
                                     {item.label}
                                 </div>
@@ -115,19 +116,19 @@ export default function Sidebar() {
                                             style={{
                                                 display: "flex",
                                                 alignItems: "center",
-                                                gap: "var(--space-md)",
-                                                padding: "var(--space-sm) var(--space-md)",
-                                                paddingLeft: "var(--space-xl)",
-                                                borderRadius: "var(--radius-md)",
+                                                gap: "12px",
+                                                padding: "10px 12px",
+                                                borderRadius: "12px",
                                                 fontSize: "0.875rem",
-                                                fontWeight: isActive ? 600 : 400,
-                                                color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
-                                                background: isActive ? "var(--bg-secondary)" : "transparent",
-                                                transition: "all var(--transition-fast)",
-                                                marginBottom: "2px",
+                                                fontWeight: isActive ? 700 : 600,
+                                                color: isActive ? "var(--accent-primary)" : "var(--text-secondary)",
+                                                background: isActive ? "rgba(37, 99, 235, 0.06)" : "transparent",
+                                                transition: "all 0.2s ease",
+                                                marginBottom: "4px",
+                                                textDecoration: "none"
                                             }}
                                         >
-                                            <Icon size={16} />
+                                            <Icon size={18} strokeWidth={isActive ? 2.5 : 2} />
                                             {child.label}
                                         </Link>
                                     );
@@ -145,18 +146,19 @@ export default function Sidebar() {
                             style={{
                                 display: "flex",
                                 alignItems: "center",
-                                gap: "var(--space-md)",
-                                padding: "var(--space-sm) var(--space-md)",
-                                borderRadius: "var(--radius-md)",
+                                gap: "12px",
+                                padding: "12px",
+                                borderRadius: "12px",
                                 fontSize: "0.875rem",
-                                fontWeight: isActive ? 600 : 400,
-                                color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
-                                background: isActive ? "var(--bg-secondary)" : "transparent",
-                                transition: "all var(--transition-fast)",
-                                marginBottom: "2px",
+                                fontWeight: isActive ? 700 : 600,
+                                color: isActive ? "var(--accent-primary)" : "var(--text-secondary)",
+                                background: isActive ? "rgba(37, 99, 235, 0.06)" : "transparent",
+                                transition: "all 0.2s ease",
+                                marginBottom: "6px",
+                                textDecoration: "none"
                             }}
                         >
-                            <Icon size={16} />
+                            <Icon size={18} strokeWidth={2.5} />
                             {item.label}
                         </Link>
                     );
@@ -165,42 +167,44 @@ export default function Sidebar() {
 
             {/* Footer */}
             <div style={{
-                padding: "var(--space-lg)",
+                padding: "24px 12px",
                 borderTop: "1px solid var(--border-default)",
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--space-sm)",
+                background: "linear-gradient(to top, #f8fafc 0%, #ffffff 100%)"
             }}>
                 <button
                     onClick={() => signOut()}
                     style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "var(--space-md)",
-                        padding: "var(--space-sm) var(--space-md)",
-                        borderRadius: "var(--radius-md)",
+                        gap: "12px",
+                        padding: "12px",
+                        borderRadius: "12px",
+                        width: "100%",
                         fontSize: "0.875rem",
+                        fontWeight: 700,
                         color: "var(--status-overdue)",
                         background: "transparent",
                         border: "none",
                         cursor: "pointer",
-                        transition: "all var(--transition-fast)",
+                        transition: "all 0.2s ease",
+                        textAlign: "left"
                     }}
-                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--status-overdue-bg)'}
+                    onMouseOver={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.06)'}
                     onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
                 >
-                    <LogOut size={16} />
-                    Sign Out
+                    <LogOut size={18} strokeWidth={2.5} />
+                    Terminate Session
                 </button>
                 <div style={{
-                    fontSize: "0.75rem",
+                    fontSize: "0.6875rem",
                     color: "var(--text-tertiary)",
-                    marginTop: "4px"
+                    padding: "12px",
+                    fontWeight: 700,
+                    opacity: 0.5
                 }}>
-                    v1.0.0 · Aura Admin
+                    v4.0.2 · Lumina Enterprise
                 </div>
             </div>
-
         </aside>
     );
 }
