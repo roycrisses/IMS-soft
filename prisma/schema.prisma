@@ -1,0 +1,183 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+
+// ─── Courses & Batches ───
+
+model Course {
+  id             String    @id @default(cuid())
+  name           String
+  code           String    @unique
+  defaultTotalFee Float    @default(0)
+  description    String?
+  active         Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  batches  Batch[]
+  students Student[]
+
+  @@index([code])
+}
+
+model Batch {
+  id           String   @id @default(cuid())
+  name         String
+  courseId      String
+  startDate    DateTime
+  endDate      DateTime
+  academicYear String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  course   Course    @relation(fields: [courseId], references: [id])
+  students Student[]
+
+  @@index([courseId])
+}
+
+// ─── Students ───
+
+model Student {
+  id                 String   @id @default(cuid())
+  studentCode        String   @unique
+  firstName          String
+  lastName           String
+  photoUrl           String?
+  courseId            String
+  batchId            String
+  primaryParentName  String
+  secondaryParentName String?
+  primaryPhone       String
+  secondaryPhone     String?
+  address            String?
+  enrollmentDate     DateTime @default(now())
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  course        Course                 @relation(fields: [courseId], references: [id])
+  batch         Batch                  @relation(fields: [batchId], references: [id])
+  feePlans      StudentFeePlan[]
+  feeLedger     StudentFeeLedgerEntry[]
+  attendance    Attendance[]
+
+  @@index([studentCode])
+  @@index([courseId])
+  @@index([batchId])
+}
+
+// ─── Fee Plans & Ledger ───
+
+model StudentFeePlan {
+  id         String   @id @default(cuid())
+  studentId  String
+  totalFee   Float
+  discount   Float    @default(0)
+  netPayable Float
+  createdBy  String   @default("admin")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  student       Student                 @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  ledgerEntries StudentFeeLedgerEntry[]
+
+  @@index([studentId])
+}
+
+// Type: CHARGE, DISCOUNT, PAYMENT, ADJUSTMENT
+model StudentFeeLedgerEntry {
+  id        String   @id @default(cuid())
+  studentId String
+  feePlanId String
+  type      String   // CHARGE | DISCOUNT | PAYMENT | ADJUSTMENT
+  amount    Float
+  meta      String?  // JSON string for payment mode, notes, receipt no
+  createdAt DateTime @default(now())
+  createdBy String   @default("admin")
+
+  student Student        @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  feePlan StudentFeePlan @relation(fields: [feePlanId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
+  @@index([feePlanId])
+  @@index([type])
+}
+
+// ─── Staff ───
+
+model Staff {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  role      String
+  joinDate  DateTime @default(now())
+  email     String?
+  phone     String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  salaryStructures SalaryStructure[]
+  payrollEntries   PayrollLedgerEntry[]
+}
+
+model SalaryStructure {
+  id           String    @id @default(cuid())
+  staffId      String
+  base         Float
+  allowances   Float     @default(0)
+  effectiveFrom DateTime
+  effectiveTo  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  staff Staff @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  @@index([staffId])
+}
+
+model PayrollLedgerEntry {
+  id             String    @id @default(cuid())
+  staffId        String
+  month          Int
+  year           Int
+  grossSalary    Float
+  deductions     Float     @default(0)
+  netPayable     Float
+  paidAmount     Float     @default(0)
+  pendingBalance Float     @default(0)
+  paidDate       DateTime?
+  meta           String?   // JSON string
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  staff Staff @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  @@index([staffId])
+  @@index([month, year])
+}
+
+// ─── Attendance ───
+
+model Attendance {
+  id        String   @id @default(cuid())
+  studentId String
+  date      DateTime
+  status    String   // PRESENT | ABSENT | LATE
+  markedBy  String   @default("admin")
+  createdAt DateTime @default(now())
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, date])
+  @@index([studentId])
+  @@index([date])
+}
