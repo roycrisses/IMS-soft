@@ -8,19 +8,24 @@ export const metadata: Metadata = {
   description: "Institute Management System for student, financial, and staff management.",
 };
 
-export default function RootLayout({
+import { createClient } from "@/lib/supabase/server";
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <html lang="en">
       <body>
         <div className="app-shell">
-          <Sidebar />
-          <div className="main-area">
-            <TopBar />
-            <main className="page-content">
+          {user && <Sidebar />}
+          <div className="main-area" style={{ marginLeft: user ? "var(--sidebar-width)" : 0 }}>
+            {user && <TopBar />}
+            <main className={user ? "page-content" : ""}>
               {children}
             </main>
           </div>
@@ -29,3 +34,4 @@ export default function RootLayout({
     </html>
   );
 }
+

@@ -15,12 +15,22 @@ export default function TopBar() {
             position: "sticky",
             top: 0,
             zIndex: 40,
+            boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
         }}>
             {/* Search */}
-            <div className="search-bar" style={{ flex: "0 1 360px" }}>
+            <div className="search-bar" style={{
+                flex: "0 1 400px",
+                background: "var(--bg-secondary)",
+                border: "1px solid var(--border-default)",
+                transition: "all var(--transition-fast)",
+            }}>
                 <Search size={16} style={{ color: "var(--text-tertiary)" }} />
-                <input placeholder="Search students, staff..." />
+                <input
+                    placeholder="Search platform..."
+                    style={{ fontWeight: 500 }}
+                />
             </div>
+
 
             {/* Right side */}
             <div style={{ display: "flex", alignItems: "center", gap: "var(--space-lg)" }}>

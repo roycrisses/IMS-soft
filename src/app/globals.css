@@ -4,41 +4,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Cinematic Dark Theme */
-  --bg-primary: #000000;
-  --bg-secondary: #050505;
-  --bg-tertiary: #0A0A0A;
-  --bg-hover: #111111;
+  /* Premium Light Mode Theme */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --bg-tertiary: #F1F5F9;
+  --bg-hover: #F1F5F9;
 
-  /* Text - High Contrast */
-  --text-primary: #FFFFFF;
-  --text-secondary: #A1A1AA;
-  --text-tertiary: #52525B;
+  /* Text - High Legibility */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-tertiary: #94A3B8;
 
-  /* Borders - Minimalist */
-  --border-default: #1A1A1A;
-  --border-light: #262626;
+  /* Borders - Crisp & Subtle */
+  --border-default: #E2E8F0;
+  --border-light: #F1F5F9;
 
-  /* Accents - Premium Amber */
-  --accent-primary: #FF7A00;
-  --accent-navy: #050505;
-  --accent-blue: #00A3FF;
-  --accent-blue-light: rgba(0, 163, 255, 0.1);
+  /* Accents - Scientific Blue */
+  --accent-primary: #2563EB;
+  --accent-navy: #1E293B;
+  --accent-blue: #3B82F6;
+  --accent-blue-light: #EFF6FF;
 
-  /* Status - High Vibrancy */
+  /* Status - Vibrant but Controlled */
   --status-paid: #10B981;
-  --status-paid-bg: rgba(16, 185, 129, 0.1);
+  --status-paid-bg: #ECFDF5;
   --status-partial: #F59E0B;
-  --status-partial-bg: rgba(245, 158, 11, 0.1);
+  --status-partial-bg: #FFFBEB;
   --status-overdue: #EF4444;
-  --status-overdue-bg: rgba(239, 68, 68, 0.1);
-  --status-pending: #71717A;
-  --status-pending-bg: rgba(113, 113, 122, 0.1);
+  --status-overdue-bg: #FEF2F2;
+  --status-pending: #64748B;
+  --status-pending-bg: #F8FAFC;
 
-  /* Glassmorphism Styles */
-  --glass-bg: rgba(5, 5, 5, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --glass-blur: blur(12px);
+  /* Refined Shadows & Effects */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --glass-blur: blur(8px);
 
   /* Spacing */
   --space-xs: 4px;
@@ -50,19 +51,20 @@
   --space-3xl: 48px;
 
   /* Radii */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
 
   /* Sidebar */
   --sidebar-width: 260px;
-  --topbar-height: 56px;
+  --topbar-height: 64px;
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 
 
 * {
@@ -89,10 +91,31 @@ a {
   text-decoration: none;
 }
 
-h1 { font-size: 1.875rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.025em; }
-h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.02em; }
-h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
-h4 { font-size: 1rem; font-weight: 600; line-height: 1.4; }
+h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
 
 /* ─── Layout Shell ─── */
 .app-shell {
@@ -127,70 +150,72 @@ h4 { font-size: 1rem; font-weight: 600; line-height: 1.4; }
 
 /* ─── Cards ─── */
 .card {
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
-  backdrop-filter: var(--glass-blur);
-  background-clip: padding-box;
+  box-shadow: var(--shadow-sm);
 }
 
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-lg);
+  gap: var(--space-xl);
 }
 
 /* ─── Stat Tiles ─── */
 .stat-tile {
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  background: var(--bg-primary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  gap: var(--space-xs);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
 }
 
 .stat-tile:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
   border-color: var(--accent-primary);
 }
 
-.stat-tile::after {
+.stat-tile::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+  width: 4px;
+  height: 100%;
+  background: var(--accent-primary);
   opacity: 0;
   transition: opacity var(--transition-normal);
 }
 
-.stat-tile:hover::after {
+.stat-tile:hover::before {
   opacity: 1;
 }
 
-
 .stat-tile .stat-label {
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.025em;
 }
 
 .stat-tile .stat-value {
-  font-size: 1.75rem;
+  font-size: 1.875rem;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.025em;
+  margin-top: 4px;
 }
+
 
 /* ─── Tables ─── */
 .data-table-wrapper {
@@ -367,9 +392,17 @@ h4 { font-size: 1rem; font-weight: 600; line-height: 1.4; }
 }
 
 @media (max-width: 768px) {
-  .form-grid { grid-template-columns: 1fr; }
-  .main-area { margin-left: 0; }
-  .page-content { padding: var(--space-lg); }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .main-area {
+    margin-left: 0;
+  }
+
+  .page-content {
+    padding: var(--space-lg);
+  }
 }
 
 .form-textarea {
@@ -388,12 +421,35 @@ h4 { font-size: 1rem; font-weight: 600; line-height: 1.4; }
   letter-spacing: 0.02em;
 }
 
-.status-pill.paid { background: var(--status-paid-bg); color: var(--status-paid); }
-.status-pill.partial { background: var(--status-partial-bg); color: var(--status-partial); }
-.status-pill.overdue { background: var(--status-overdue-bg); color: var(--status-overdue); }
-.status-pill.pending { background: var(--status-pending-bg); color: var(--status-pending); }
-.status-pill.active { background: #ECFDF5; color: #059669; }
-.status-pill.inactive { background: #F3F4F6; color: #6B7280; }
+.status-pill.paid {
+  background: var(--status-paid-bg);
+  color: var(--status-paid);
+}
+
+.status-pill.partial {
+  background: var(--status-partial-bg);
+  color: var(--status-partial);
+}
+
+.status-pill.overdue {
+  background: var(--status-overdue-bg);
+  color: var(--status-overdue);
+}
+
+.status-pill.pending {
+  background: var(--status-pending-bg);
+  color: var(--status-pending);
+}
+
+.status-pill.active {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+.status-pill.inactive {
+  background: #F3F4F6;
+  color: #6B7280;
+}
 
 /* ─── Tabs ─── */
 .tabs {
@@ -549,20 +605,70 @@ h4 { font-size: 1rem; font-weight: 600; line-height: 1.4; }
 }
 
 /* ─── Utility ─── */
-.text-right { text-align: right; }
-.text-center { text-align: center; }
-.text-muted { color: var(--text-secondary); }
-.text-sm { font-size: 0.8125rem; }
-.font-mono { font-family: 'SF Mono', 'Cascadia Code', monospace; }
-.mt-sm { margin-top: var(--space-sm); }
-.mt-md { margin-top: var(--space-md); }
-.mt-lg { margin-top: var(--space-lg); }
-.mt-xl { margin-top: var(--space-xl); }
-.mb-lg { margin-bottom: var(--space-lg); }
-.flex { display: flex; }
-.items-center { align-items: center; }
-.justify-between { justify-content: space-between; }
-.gap-sm { gap: var(--space-sm); }
-.gap-md { gap: var(--space-md); }
-.gap-lg { gap: var(--space-lg); }
-.w-full { width: 100%; }
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: var(--text-secondary);
+}
+
+.text-sm {
+  font-size: 0.8125rem;
+}
+
+.font-mono {
+  font-family: 'SF Mono', 'Cascadia Code', monospace;
+}
+
+.mt-sm {
+  margin-top: var(--space-sm);
+}
+
+.mt-md {
+  margin-top: var(--space-md);
+}
+
+.mt-lg {
+  margin-top: var(--space-lg);
+}
+
+.mt-xl {
+  margin-top: var(--space-xl);
+}
+
+.mb-lg {
+  margin-bottom: var(--space-lg);
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-sm {
+  gap: var(--space-sm);
+}
+
+.gap-md {
+  gap: var(--space-md);
+}
+
+.gap-lg {
+  gap: var(--space-lg);
+}
+
+.w-full {
+  width: 100%;
+}

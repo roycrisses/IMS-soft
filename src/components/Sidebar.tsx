@@ -11,7 +11,10 @@ import {
     Settings,
     CreditCard,
     AlertTriangle,
+    LogOut,
 } from "lucide-react";
+import { signOut } from "@/actions/auth";
+
 
 const navItems = [
     { label: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -50,7 +53,7 @@ export default function Sidebar() {
             <div style={{
                 padding: "var(--space-xl)",
                 borderBottom: "1px solid var(--border-default)",
-                background: "linear-gradient(to bottom, var(--bg-secondary), transparent)",
+                background: "linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary))",
             }}>
                 <div style={{
                     fontSize: "1.125rem",
@@ -62,25 +65,27 @@ export default function Sidebar() {
                     gap: "8px",
                 }}>
                     <div style={{
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "50%",
+                        width: "10px",
+                        height: "10px",
+                        borderRadius: "3px",
                         background: "var(--accent-primary)",
-                        boxShadow: "0 0 10px var(--accent-primary)",
+                        boxShadow: "0 2px 8px rgba(37, 99, 235, 0.4)",
+                        transform: "rotate(45deg)",
                     }} />
-                    Institute<span style={{ color: "var(--accent-primary)", fontWeight: 800 }}>MIS</span>
+                    Lumina<span style={{ color: "var(--accent-primary)", fontWeight: 800 }}>MIS</span>
                 </div>
                 <div style={{
                     fontSize: "0.6875rem",
                     color: "var(--text-tertiary)",
-                    marginTop: "4px",
+                    marginTop: "6px",
                     textTransform: "uppercase",
                     letterSpacing: "0.15em",
-                    fontWeight: 500,
+                    fontWeight: 600,
                 }}>
-                    Aura Management
+                    Academic Excellence
                 </div>
             </div>
+
 
 
             {/* Nav */}
@@ -162,11 +167,40 @@ export default function Sidebar() {
             <div style={{
                 padding: "var(--space-lg)",
                 borderTop: "1px solid var(--border-default)",
-                fontSize: "0.75rem",
-                color: "var(--text-tertiary)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "var(--space-sm)",
             }}>
-                v1.0.0 · Admin
+                <button
+                    onClick={() => signOut()}
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "var(--space-md)",
+                        padding: "var(--space-sm) var(--space-md)",
+                        borderRadius: "var(--radius-md)",
+                        fontSize: "0.875rem",
+                        color: "var(--status-overdue)",
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                        transition: "all var(--transition-fast)",
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--status-overdue-bg)'}
+                    onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                    <LogOut size={16} />
+                    Sign Out
+                </button>
+                <div style={{
+                    fontSize: "0.75rem",
+                    color: "var(--text-tertiary)",
+                    marginTop: "4px"
+                }}>
+                    v1.0.0 · Aura Admin
+                </div>
             </div>
+
         </aside>
     );
 }
