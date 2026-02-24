@@ -81,20 +81,23 @@ export async function recordPayment(data: RecordPaymentInput): Promise<ActionRes
                 },
             });
 
-            // Calculate updated balance from all ledger entries
-            const allEntries = await tx.studentFeeLedgerEntry.findMany({
+            // Optimization: Use database aggregation instead of fetching all entries into memory.
+            const summary = await tx.studentFeeLedgerEntry.groupBy({
+                by: ['type'],
                 where: { studentId: validated.studentId },
+                _sum: { amount: true },
             });
 
-            let totalCharged = 0;
-            let totalDiscount = 0;
-            let totalPaid = 0;
+            const totals = { CHARGE: 0, DISCOUNT: 0, PAYMENT: 0 };
+            summary.forEach(s => {
+                if (s.type in totals) {
+                    totals[s.type as keyof typeof totals] = s._sum.amount || 0;
+                }
+            });
 
-            for (const e of allEntries) {
-                if (e.type === "CHARGE") totalCharged += e.amount;
-                if (e.type === "DISCOUNT") totalDiscount += e.amount;
-                if (e.type === "PAYMENT") totalPaid += e.amount;
-            }
+            const totalCharged = totals.CHARGE;
+            const totalDiscount = totals.DISCOUNT;
+            const totalPaid = totals.PAYMENT;
 
             const balance = totalCharged - totalDiscount - totalPaid;
             const student = feePlan.student;

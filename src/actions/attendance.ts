@@ -64,37 +64,41 @@ export async function getDashboardStats(): Promise<ActionResult> {
         const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
         const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
 
-        const [totalStudents, totalStaff] = await Promise.all([
+        // Optimization: Use database aggregation instead of fetching all records into memory.
+        // This reduces memory usage from O(N) to O(1) and significantly decreases network transfer.
+        const [totalStudents, totalStaff, feeSummary, monthCollections, payrollSummary] = await Promise.all([
             prisma.student.count(),
             prisma.staff.count({ where: { isActive: true } }),
+            prisma.studentFeeLedgerEntry.groupBy({
+                by: ['type'],
+                _sum: { amount: true },
+            }),
+            prisma.studentFeeLedgerEntry.aggregate({
+                where: {
+                    type: "PAYMENT",
+                    createdAt: { gte: startOfMonth, lte: endOfMonth },
+                },
+                _sum: { amount: true },
+            }),
+            prisma.payrollLedgerEntry.aggregate({
+                where: {
+                    month: now.getMonth() + 1,
+                    year: now.getFullYear(),
+                },
+                _sum: { pendingBalance: true },
+            }),
         ]);
 
-        // Get all fee ledger entries for outstanding balance
-        const allFeeEntries = await prisma.studentFeeLedgerEntry.findMany();
-        let totalCharged = 0, totalDiscount = 0, totalPaid = 0;
-        for (const e of allFeeEntries) {
-            if (e.type === "CHARGE") totalCharged += e.amount;
-            if (e.type === "DISCOUNT") totalDiscount += e.amount;
-            if (e.type === "PAYMENT") totalPaid += e.amount;
-        }
-        const outstandingFees = totalCharged - totalDiscount - totalPaid;
-
-        // This month's collections
-        const monthPayments = await prisma.studentFeeLedgerEntry.findMany({
-            where: {
-                type: "PAYMENT",
-                createdAt: { gte: startOfMonth, lte: endOfMonth },
-            },
+        const feeTotals = { CHARGE: 0, DISCOUNT: 0, PAYMENT: 0 };
+        feeSummary.forEach(s => {
+            if (s.type in feeTotals) {
+                feeTotals[s.type as keyof typeof feeTotals] = s._sum.amount || 0;
+            }
         });
-        const thisMonthCollections = monthPayments.reduce((sum, e) => sum + e.amount, 0);
 
-        // Pending payroll
-        const currentMonth = now.getMonth() + 1;
-        const currentYear = now.getFullYear();
-        const payrollEntries = await prisma.payrollLedgerEntry.findMany({
-            where: { month: currentMonth, year: currentYear },
-        });
-        const pendingPayroll = payrollEntries.reduce((sum, e) => sum + e.pendingBalance, 0);
+        const outstandingFees = feeTotals.CHARGE - feeTotals.DISCOUNT - feeTotals.PAYMENT;
+        const thisMonthCollections = monthCollections._sum.amount || 0;
+        const pendingPayroll = payrollSummary._sum.pendingBalance || 0;
 
         return success({
             totalStudents,
