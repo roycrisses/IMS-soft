@@ -1,4 +1,4 @@
-import { login, signup } from "@/actions/auth";
+import { login } from "@/actions/auth";
 
 export default function LoginPage({
     searchParams,
