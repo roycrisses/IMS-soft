@@ -50,25 +50,38 @@ export default function Sidebar() {
             <div style={{
                 padding: "var(--space-xl)",
                 borderBottom: "1px solid var(--border-default)",
+                background: "linear-gradient(to bottom, var(--bg-secondary), transparent)",
             }}>
                 <div style={{
                     fontSize: "1.125rem",
                     fontWeight: 700,
                     color: "var(--text-primary)",
                     letterSpacing: "-0.025em",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
                 }}>
-                    Institute<span style={{ color: "var(--text-tertiary)", fontWeight: 400 }}>MIS</span>
+                    <div style={{
+                        width: "8px",
+                        height: "8px",
+                        borderRadius: "50%",
+                        background: "var(--accent-primary)",
+                        boxShadow: "0 0 10px var(--accent-primary)",
+                    }} />
+                    Institute<span style={{ color: "var(--accent-primary)", fontWeight: 800 }}>MIS</span>
                 </div>
                 <div style={{
                     fontSize: "0.6875rem",
                     color: "var(--text-tertiary)",
-                    marginTop: "2px",
+                    marginTop: "4px",
                     textTransform: "uppercase",
-                    letterSpacing: "0.05em",
+                    letterSpacing: "0.15em",
+                    fontWeight: 500,
                 }}>
-                    Management System
+                    Aura Management
                 </div>
             </div>
+
 
             {/* Nav */}
             <nav style={{ flex: 1, padding: "var(--space-md)", overflowY: "auto" }}>

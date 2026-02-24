@@ -4,36 +4,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Surfaces */
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F4F4F9;
-  --bg-tertiary: #EEEEF3;
-  --bg-hover: #F0F0F5;
+  /* Cinematic Dark Theme */
+  --bg-primary: #000000;
+  --bg-secondary: #050505;
+  --bg-tertiary: #0A0A0A;
+  --bg-hover: #111111;
 
-  /* Text */
-  --text-primary: #111827;
-  --text-secondary: #6B7280;
-  --text-tertiary: #9CA3AF;
+  /* Text - High Contrast */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1AA;
+  --text-tertiary: #52525B;
 
-  /* Borders */
-  --border-default: #E0E0E0;
-  --border-light: #EBEBEB;
+  /* Borders - Minimalist */
+  --border-default: #1A1A1A;
+  --border-light: #262626;
 
-  /* Accents */
-  --accent-primary: #111827;
-  --accent-navy: #1E293B;
-  --accent-blue: #2563EB;
-  --accent-blue-light: #EFF6FF;
+  /* Accents - Premium Amber */
+  --accent-primary: #FF7A00;
+  --accent-navy: #050505;
+  --accent-blue: #00A3FF;
+  --accent-blue-light: rgba(0, 163, 255, 0.1);
 
-  /* Status */
-  --status-paid: #059669;
-  --status-paid-bg: #ECFDF5;
-  --status-partial: #D97706;
-  --status-partial-bg: #FFFBEB;
-  --status-overdue: #DC2626;
-  --status-overdue-bg: #FEF2F2;
-  --status-pending: #6B7280;
-  --status-pending-bg: #F3F4F6;
+  /* Status - High Vibrancy */
+  --status-paid: #10B981;
+  --status-paid-bg: rgba(16, 185, 129, 0.1);
+  --status-partial: #F59E0B;
+  --status-partial-bg: rgba(245, 158, 11, 0.1);
+  --status-overdue: #EF4444;
+  --status-overdue-bg: rgba(239, 68, 68, 0.1);
+  --status-pending: #71717A;
+  --status-pending-bg: rgba(113, 113, 122, 0.1);
+
+  /* Glassmorphism Styles */
+  --glass-bg: rgba(5, 5, 5, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-blur: blur(12px);
 
   /* Spacing */
   --space-xs: 4px;
@@ -46,18 +51,19 @@
 
   /* Radii */
   --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 
   /* Sidebar */
   --sidebar-width: 260px;
   --topbar-height: 56px;
 
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 200ms ease;
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 
 * {
   margin: 0;
@@ -121,10 +127,12 @@ h4 { font-size: 1rem; font-weight: 600; line-height: 1.4; }
 
 /* ─── Cards ─── */
 .card {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
+  backdrop-filter: var(--glass-blur);
+  background-clip: padding-box;
 }
 
 .card-grid {
@@ -135,14 +143,39 @@ h4 { font-size: 1rem; font-weight: 600; line-height: 1.4; }
 
 /* ─── Stat Tiles ─── */
 .stat-tile {
-  background: var(--bg-primary);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
+  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  position: relative;
+  overflow: hidden;
 }
+
+.stat-tile:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-primary);
+}
+
+.stat-tile::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.stat-tile:hover::after {
+  opacity: 1;
+}
+
 
 .stat-tile .stat-label {
   font-size: 0.8125rem;

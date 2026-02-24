@@ -22,12 +22,13 @@ export async function getStudents(filters?: {
         if (filters?.batchId) where.batchId = filters.batchId;
         if (filters?.search) {
             where.OR = [
-                { firstName: { contains: filters.search } },
-                { lastName: { contains: filters.search } },
-                { studentCode: { contains: filters.search } },
-                { primaryPhone: { contains: filters.search } },
+                { firstName: { contains: filters.search, mode: "insensitive" } },
+                { lastName: { contains: filters.search, mode: "insensitive" } },
+                { studentCode: { contains: filters.search, mode: "insensitive" } },
+                { primaryPhone: { contains: filters.search, mode: "insensitive" } },
             ];
         }
+
 
         const [students, total] = await Promise.all([
             prisma.student.findMany({
